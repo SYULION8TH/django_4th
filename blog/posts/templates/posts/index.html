@@ -1,0 +1,176 @@
+{% load static from static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 부트스트랩 가져오는 코드 -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+  <!-- css 가져오기 -->
+  <link rel="stylesheet" href="{% static 'posts/css/index.css' %}">
+  <title>타이틀을 입력</title>
+</head>
+
+<body>
+  <!-- 헤더 컨텐츠 -->
+  <header>
+    <p>헤더를 입력</p>
+  </header>
+  <!-- 네비게이션 바 부트스트랩 -->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="#">Blog</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Posts<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">About Me</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Follow
+          </a>
+          <!-- 드랍다운 메뉴 -->
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Github</a>
+            <a class="dropdown-item" href="#">Instagram</a>
+            <a class="dropdown-item" href="#">Facebook</a>
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="id" placeholder="아이디" aria-label="ID">
+        <input class="form-control mr-sm-2" type="id" placeholder="비밀번호" aria-label="PASSWORD">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+      </form>
+    </div>
+  </nav>
+  <!-- 바디 컨텐츠를 묶어주는 역할 -->
+  <div class="body-wrapper">
+    <!-- 사이드 컨텐츠 -->
+    <aside>
+      <div class="button">◀</div>
+      <div class="profile"></div>
+      <div class="user-items">이름</div>
+      <div class="user-items">깃허브 계정</div>
+      <div class="user-items">멋사 계정</div>
+      <div class="user-items">배우고 있는 것들</div>
+      <div class="user-items">이력</div>
+    </aside>
+    <!-- 섹터 컨텐츠 -->
+    <section>
+      <div>
+        <div>
+          <!-- 블로그 글을 감싸는 요소 -->
+          <div>
+            {% for post in posts %}
+            <div class="card mb-3" style="max-width: 540px;">
+              <div class="row no-gutters">
+                <div class="col-md-4">
+                  <img src="{{ post.img.url }}" class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{post.summary}}</p>
+                    <p class="card-text">
+                      <small class="text-muted">Created at: {{ post.created_at }}</small><br />
+                      <small class="text-muted">Updated at: {{ post.updated_at }}</small>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+            <!-- 페이지네이션 코드 -->
+            <div class="pagination">
+              <span class="step-links">
+                {% if posts.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ posts.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                  Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+                </span>
+
+                {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}">next</a>
+                <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+              </span>
+            </div>
+            <!-- 페이지네이션 코드 종료-->
+          </div>
+          <!-- 블로그 글을 감싸는 요소 종료 -->
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- 맨아래 푸터 컨텐츠 -->
+  <footer>
+    <div class="footer-items">
+      powered by KiHongPark
+    </div>
+  </footer>
+
+
+  <!-- 이하는 건들지 말것!! -->
+  <script>
+    const $button = document.querySelector(".button");
+    const $aside = document.querySelector("aside");
+    const $section = document.querySelector("section > div")
+    const $contents = document.querySelector("section > div > div")
+
+    860 > innerWidth ? $aside.setAttribute("style", "display:none !important") : null;
+    860 > innerWidth ? $section.classList.add("act") : $section.classList.remove("act");
+    600 > innerWidth ? $contents.style.width = "100vw" : $contents.style.width = "60%"
+    600 > innerWidth ? $contents.style.minWidth = "" : $contents.style.minWidth = "600px"
+
+    window.addEventListener("resize", () => { if (860 > innerWidth) 600 > innerWidth ? $contents.style.minWidth = "" : $contents.style.minWidth = "600px" });
+    window.addEventListener("resize", () => { if (860 > innerWidth) 600 > innerWidth ? $contents.style.width = "100vw" : $contents.style.width = "60%" });
+    window.addEventListener("resize", contentsMover);
+    function contentsMover(e) {
+      if (innerWidth < 860) {
+        $aside.setAttribute("style", "display:none !important")
+        $section.classList.add("act");
+      } else {
+        $aside.style.display = "";
+        if (!$aside.classList.contains("hide")) {
+          $section.classList.remove("act");
+        }
+
+      }
+    }
+
+    $button.addEventListener("click", hideToggle);
+    $button.style.transition = "all 0.2s"
+    $button.style.transform = "rotate(0deg)"
+    $button.style.transformOrigin = "center"
+
+    function hideToggle(e) {
+      $aside.classList.toggle("hide")
+      $section.classList.toggle("act")
+      $button.style.transform == "rotate(0deg)" ? $button.style.transform = "rotate(180deg)" : $button.style.transform = "rotate(0deg)"
+    }
+  </script>
+</body>
+
+</html>
