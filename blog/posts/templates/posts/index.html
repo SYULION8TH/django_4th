@@ -92,7 +92,8 @@
                     <p class="card-text">{{post.summary}}</p>
                     <p class="card-text">
                       <small class="text-muted">Created at: {{ post.created_at }}</small><br />
-                      <small class="text-muted">Updated at: {{ post.updated_at }}</small>
+                      <small class="text-muted">Updated at: {{ post.updated_at }}</small><br/>
+                      <a href= "{% url 'detail' post.id %}">...more</a> <!-- 추가된 코드 -->
                     </p>
                   </div>
                 </div>

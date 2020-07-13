@@ -15,13 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-import posts.views # 추가된 코드
+import posts.views 
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', posts.views.home, name="home"), # 추가된 코드
+    path('', posts.views.home, name="home"), 
+    path('posts/<int:pk>', posts.views.detail, name='detail'), # 추가된 코드
+    path('newblog/', posts.views.blogpost, name = 'newblog'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
