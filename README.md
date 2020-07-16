@@ -50,7 +50,7 @@ def blogpost(request):
             post = form.save(commit=False) # post에 담기 commit이 true냐 false냐는 지금 바로 저장하냐 나중에 저장하냐 차이, 나중에 저장하면 post.save()메소드를 이용하여 저장해주어야함.
             post.create_at = timezone.now() # 만들어진 시간 넣기(아마 안넣어도 될걸)
             post.save() # 데이터 저장
-            return redirect('/posts/' + str(post.id)) # 리다이렉팅 알아서 설명 넣어
+            return redirect('/posts/' + str(post.id)) 
     else: # POST가 아닐때
         form = BlogPost()
         return render(request, 'posts/new.html', {'form':form})
