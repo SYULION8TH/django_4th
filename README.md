@@ -11,8 +11,8 @@
 ```python
 from django.shortcuts import get_object_or_404, render
 
-def detail(request, pk): # 추가된 코드
-    post = get_object_or_404(Post, pk = pk)
+def detail(request, post_id): # 추가된 코드
+    post = get_object_or_404(Post, pk = post_id)
     
     return render(request, 'posts/detail.html', {"post":post})
 ```
@@ -21,7 +21,7 @@ def detail(request, pk): # 추가된 코드
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', posts.views.home, name="home"), 
-    path('posts/<int:pk>', posts.views.detail, name='detail'), # 추가된 코드
+    path('posts/<int:post_id>', posts.views.detail, name='detail'), # 추가된 코드
 ]
 ```
 
