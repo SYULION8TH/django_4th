@@ -40,6 +40,7 @@ class BlogPost(forms.ModelForm): # 모델 폼클래스를 이용해서 Post모�
 ### views.py
 ```python
 from .forms import BlogPost
+from django.shortcuts import get_object_or_404, render, redirect # 추가된 코드
 ```
 BlogPost를 가져와 줍니다.
 ```python
